@@ -33,6 +33,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['https://*.herokuapp.com',
                  'moment-b1d4ee9b6972.herokuapp.com',
+                 '127.0.0.1',
                 ]
 
 
