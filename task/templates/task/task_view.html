@@ -1,0 +1,11 @@
+<h1>My Tasks</h1>
+
+<ul>
+{% for task in tasks %}
+    <li>
+        {{ task.title }} by {{ task.created_by.username }}
+    </li>
+{% empty %}
+    <li>No tasks yet.</li>
+{% endfor %}
+</ul>
