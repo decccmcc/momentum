@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 from .models import TaskList
-from .forms import TaskForm
+from .form import TaskForm
 
 
 class HomePage(TemplateView):
