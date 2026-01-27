@@ -3,7 +3,7 @@
 <ul>
 {% for task in tasks %}
     <li>
-        {{ task.title }} by {{ task.created_by.username }}
+        {{ task.title }} by {{ task.user }}
     </li>
 {% empty %}
     <li>No tasks yet.</li>
