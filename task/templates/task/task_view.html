@@ -21,9 +21,10 @@
 
 <!-- Shared header row -->
 <div class="row fw-bold pb-2 mb-2">
-    <div class="col-4">Title</div>
-    <div class="col-4">Due Date</div>
-    <div class="col-4">Status</div>
+    <div class="col-3">Title</div>
+    <div class="col-3">Due Date</div>
+    <div class="col-3">Status</div>
+    <div class="col-3">Priority</div>
 </div>
 
 <div class="accordion" id="taskAccordion">
@@ -33,9 +34,10 @@
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapse{{ task.id }}" aria-expanded="false" aria-controls="collapse{{ task.id }}">
                 <div class="row w-100">
-                    <div class="col-4 fw-bold">{{ task.title }}</div>
-                    <div class="col-4">{{ task.due_date }}</div>
-                    <div class="col-4">{{ task.status }}</div>
+                    <div class="col-3 fw-bold">{{ task.title }}</div>
+                    <div class="col-3">{{ task.due_date | date:"d M y H:i" }}</div>
+                    <div class="col-3">{{ task.status }}</div>
+                    <div class="col-3"><div class="priority {% if task.priority == 'high' %}bg-danger text-white{% elif task.priority == 'medium' %}bg-warning text-dark{% else %}bg-success text-white{% endif %}">{{ task.priority | capfirst }}</div></div>
                 </div>
             </button>
         </h2>
