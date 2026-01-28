@@ -15,3 +15,10 @@ class TaskForm(forms.ModelForm):
         model = TaskList
         fields = ['title', 'description', 'due_date',
                   'priority', 'status', 'category']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'priority': forms.Select(attrs={'class': 'form-control'}),
+            'status': forms.Select(attrs={'class': 'form-control'}),
+            'category': forms.Select(attrs={'class': 'form-control'}),
+        }
