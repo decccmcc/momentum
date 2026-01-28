@@ -57,3 +57,18 @@ def delete_task(request, pk):
     if request.method == 'POST':
         task.delete()
         return redirect('task_view')
+
+
+@login_required
+def task_edit(request, task_id):
+    task = get_object_or_404(TaskList, id=task_id, user=request.user)
+
+    if request.method == 'POST':
+        form = TaskForm(request.POST, instance=task)
+        if form.is_valid():
+            form.save()
+            return redirect('task_view')
+    else:
+        form = TaskForm(instance=task)
+
+    return render(request, 'task/task_add.html', {'form': form, 'task': task})

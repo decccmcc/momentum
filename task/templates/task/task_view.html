@@ -12,6 +12,7 @@
             {% csrf_token %}
             <button type="submit" class="btn btn-danger btn-sm">Delete</button>
         </form>
+        <a href="{% url 'task_edit' task.id %}" class="btn btn-sm btn-primary">Edit</a>
     </li>
     {% empty %}
     <li>No tasks yet.</li>
