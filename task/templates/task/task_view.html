@@ -5,13 +5,18 @@
 <h1>My Tasks</h1>
 
 <ul>
-{% for task in tasks %}
+    {% for task in tasks %}
     <li>
         {{ task.title }} by {{ task.user }}
+        <form method="post" action="{% url 'delete_task' task.pk %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+        </form>
+        <a href="{% url 'task_edit' task.id %}" class="btn btn-sm btn-primary">Edit</a>
     </li>
-{% empty %}
+    {% empty %}
     <li>No tasks yet.</li>
-{% endfor %}
+    {% endfor %}
 </ul>
 <a href="{% url 'task_add' %}"> + Add New Task</a>
 
