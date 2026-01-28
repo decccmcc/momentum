@@ -19,10 +19,10 @@ def task_view(request):
     """
     selected_category = request.GET.get('category', 'all')
     if selected_category == 'all':
-        tasks = TaskList.objects.filter(user=request.user)
+        tasks = TaskList.objects.filter(user=request.user).order_by('due_date')
     else:
         tasks = TaskList.objects.filter(
-            user=request.user, category=selected_category)
+            user=request.user, category=selected_category).order_by('due_date')
     context = {
         'tasks': tasks,
         'categories': CATEGORY_CHOICES,
