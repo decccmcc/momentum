@@ -1,6 +1,7 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView
-from .models import TaskList
+from django.contrib.auth.decorators import login_required
+from .models import TaskList 
 from .form import TaskForm
 
 
@@ -10,11 +11,13 @@ class HomePage(TemplateView):
     """
     template_name = 'index.html'
 
+
+@login_required
 def task_view(request):
     """
     Displays list of tasks
     """
-    queryset = TaskList.objects.all()
+    queryset = TaskList.objects.filter(user=request.user)
 
     context = {
         'tasks': queryset
@@ -22,6 +25,8 @@ def task_view(request):
 
     return render(request, 'task/task_view.html', context)
 
+
+@login_required
 def task_add(request):
     """
     Create a new task
@@ -35,8 +40,20 @@ def task_add(request):
             return redirect('task_view')
     else:
         form = TaskForm()
-    
+
     context = {
         'form': form
     }
     return render(request, 'task/task_add.html', context)
+
+
+@login_required
+def delete_task(request, pk):
+    """
+    Delete a task
+    """
+    task = get_object_or_404(TaskList, pk=pk, user=request.user)
+
+    if request.method == 'POST':
+        task.delete()
+        return redirect('task_view')
