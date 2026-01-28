@@ -1,3 +1,78 @@
 h1 {
     color: red;
 }
+
+/* <link rel="stylesheet" href="{% static 'css/style.css' %}"> */
+
+
+/* {% extends "base.html" %}
+
+{% block title %}  {% endblock %}
+
+{% block content %}
+   
+{% endblock %} */
+
+
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    background-color: #000000;
+    color: #FFFFFF;
+    font-family: Arial, sans-serif;
+}
+
+.navbar {
+    background-color: #3D0000;
+}
+
+.navbar-brand,
+.nav-link {
+    color: #FFFFFF;
+}
+
+.nav-link:hover {
+    color: #FF0000;
+}
+
+.container {
+    padding: 20px;
+    flex: 1;
+}
+
+footer {
+    background-color: #950101;
+    padding: 10px;
+    color: #FFFFFF;
+    text-align: center;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: #FFFFFF;
+}
+
+.mt-4 {
+    margin-top: 40px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+
+@media (max-width: 768px) {
+    .navbar-nav {
+        flex-direction: column;
+    }
+}

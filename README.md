@@ -5,6 +5,21 @@
 ## Features
 
 ## Design
+### User Stories
+- **Need**
+User Account Managment
+Task Management System
+Database Structure
+
+- **Should Have**
+UX/UI Design
+Form Validation
+User Profile Management
+Testing
+
+- **Could Have**
+Notifications
+2FA
 
 ### Wireframes
 
