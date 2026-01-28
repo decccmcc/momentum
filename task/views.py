@@ -14,7 +14,6 @@ class HomePage(TemplateView):
 
 @login_required
 def task_view(request):
-
     """
     Displays list of tasks
     """
@@ -22,11 +21,13 @@ def task_view(request):
     if selected_category == 'all':
         tasks = TaskList.objects.filter(user=request.user)
     else:
-        tasks = TaskList.objects.filter(user=request.user, category=selected_category)
+        tasks = TaskList.objects.filter(
+            user=request.user, category=selected_category)
     context = {
         'tasks': tasks,
         'categories': CATEGORY_CHOICES,
-        'selected_category': selected_category
+        'selected_category': selected_category,
+        'form': TaskForm(),
     }
 
     return render(request, 'task/task_view.html', context)
@@ -34,9 +35,6 @@ def task_view(request):
 
 @login_required
 def task_add(request):
-    """
-    Create a new task
-    """
     if request.method == 'POST':
         form = TaskForm(request.POST)
         if form.is_valid():
@@ -44,13 +42,19 @@ def task_add(request):
             task.user = request.user
             task.save()
             return redirect('task_view')
-    else:
-        form = TaskForm()
+        else:
+            # form invalid → re-render task_view with errors
+            tasks = TaskList.objects.filter(user=request.user)
+            return render(request, 'task/task_view.html', {
+                'form': form,
+                'tasks': tasks,
+                'categories': CATEGORY_CHOICES,
+                'selected_category': 'all',
+                'show_modal': True  # tells template to reopen modal
+            })
 
-    context = {
-        'form': form
-    }
-    return render(request, 'task/task_add.html', context)
+    # GET request
+    return redirect('task_view')
 
 
 @login_required
