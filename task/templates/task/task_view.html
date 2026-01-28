@@ -2,10 +2,28 @@
 
 <h1>My Tasks</h1>
 
+<!-- Category Tabs -->
+<ul class="nav nav-tabs mb-3">
+    <li class="nav-item">
+        <a class="nav-link {% if selected_category == 'all' %}active{% endif %}" 
+           href="{% url 'task_view' %}">
+            All Tasks
+        </a>
+    </li>
+    {% for value, label in categories %}
+    <li class="nav-item">
+        <a class="nav-link {% if selected_category == value %}active{% endif %}" 
+           href="{% url 'task_view' %}?category={{ value }}">
+            {{ label }}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+
 <!-- Shared header row -->
 <div class="row fw-bold pb-2 mb-2">
   <div class="col-4">Title</div>
-  <div class="col-4">User</div>
+  <div class="col-4">Due Date</div>
   <div class="col-4">Status</div>
 </div>
 
@@ -23,7 +41,7 @@
       >
         <div class="row w-100">
           <div class="col-4 fw-bold">{{ task.title }}</div>
-          <div class="col-4">{{ task.user }}</div>
+          <div class="col-4">{{ task.due_date }}</div>
           <div class="col-4">{{ task.status }}</div>
         </div>
       </button>

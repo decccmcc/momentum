@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
-from .models import TaskList 
+from .models import TaskList, CATEGORY_CHOICES
 from .form import TaskForm
 
 
@@ -14,13 +14,19 @@ class HomePage(TemplateView):
 
 @login_required
 def task_view(request):
+
     """
     Displays list of tasks
     """
-    queryset = TaskList.objects.filter(user=request.user)
-
+    selected_category = request.GET.get('category', 'all')
+    if selected_category == 'all':
+        tasks = TaskList.objects.filter(user=request.user)
+    else:
+        tasks = TaskList.objects.filter(user=request.user, category=selected_category)
     context = {
-        'tasks': queryset
+        'tasks': tasks,
+        'categories': CATEGORY_CHOICES,
+        'selected_category': selected_category
     }
 
     return render(request, 'task/task_view.html', context)
