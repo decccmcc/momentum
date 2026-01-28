@@ -1,23 +1,67 @@
-{% extends "index.html" %}
-
-{% block content %}
+{% extends "index.html" %} {% block content %}
 
 <h1>My Tasks</h1>
 
-<ul>
-    {% for task in tasks %}
-    <li>
-        {{ task.title }} by {{ task.user }}
-        <form method="post" action="{% url 'delete_task' task.pk %}">
+<!-- Shared header row -->
+<div class="row fw-bold pb-2 mb-2">
+  <div class="col-4">Title</div>
+  <div class="col-4">User</div>
+  <div class="col-4">Status</div>
+</div>
+
+<div class="accordion" id="taskAccordion">
+  {% for task in tasks %}
+  <div class="accordion-item mb-2">
+    <h2 class="accordion-header" id="heading{{ task.id }}">
+      <button
+        class="accordion-button collapsed"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#collapse{{ task.id }}"
+        aria-expanded="false"
+        aria-controls="collapse{{ task.id }}"
+      >
+        <div class="row w-100">
+          <div class="col-4 fw-bold">{{ task.title }}</div>
+          <div class="col-4">{{ task.user }}</div>
+          <div class="col-4">{{ task.status }}</div>
+        </div>
+      </button>
+    </h2>
+
+    <div
+      id="collapse{{ task.id }}"
+      class="accordion-collapse collapse"
+      aria-labelledby="heading{{ task.id }}"
+      data-bs-parent="#taskAccordion"
+    >
+      <div class="accordion-body">
+        <p class="mb-3">
+          <strong>Description:</strong><br />
+          {{ task.description }}
+        </p>
+
+        <div class="d-flex gap-2">
+          <form method="post" action="{% url 'delete_task' task.pk %}">
             {% csrf_token %}
             <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-        </form>
-        <a href="{% url 'task_edit' task.id %}" class="btn btn-sm btn-primary">Edit</a>
-    </li>
-    {% empty %}
-    <li>No tasks yet.</li>
-    {% endfor %}
-</ul>
-<a href="{% url 'task_add' %}"> + Add New Task</a>
+          </form>
+
+          <a
+            href="{% url 'task_edit' task.id %}"
+            class="btn btn-primary btn-sm"
+          >
+            Edit
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% empty %}
+  <p>No tasks yet.</p>
+  {% endfor %}
+</div>
+
+<a href="{% url 'task_add' %}" class="btn btn-success mt-3">+ Add New Task</a>
 
 {% endblock content %}
