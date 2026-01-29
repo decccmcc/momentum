@@ -2,16 +2,7 @@ h1 {
     color: red;
 }
 
-/* <link rel="stylesheet" href="{% static 'css/style.css' %}"> */
 
-
-/* {% extends "base.html" %}
-
-{% block title %}  {% endblock %}
-
-{% block content %}
-   
-{% endblock %} */
 
 
 html,
@@ -70,6 +61,16 @@ h6 {
     text-align: center;
 }
 
+.priority {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.username {
+    margin-left: 13px;
+}
 
 @media (max-width: 768px) {
     .navbar-nav {
