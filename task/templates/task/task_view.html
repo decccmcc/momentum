@@ -55,8 +55,11 @@
                         Delete
                     </button>
 
-                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addTaskModal"
-                        onclick="openEditModal('{{ task.id }}', '{{ task.title|escapejs }}', '{{ task.description|escapejs }}', '{{ task.due_date|date:'Y-m-d\TH:i' }}', '{{ task.priority }}', '{{ task.status }}', '{{ task.category }}')">
+                    <button class="btn btn-primary btn-sm" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#addTaskModal"
+                        data-action-url="{% url 'task_edit' task.id %}"
+                        onclick="openEditModal(this, '{{ task.id }}', '{{ task.title|escapejs }}', '{{ task.description|escapejs }}', '{{ task.due_date|date:'Y-m-d\TH:i' }}', '{{ task.priority }}', '{{ task.status }}', '{{ task.category }}')">
                         Edit
                     </button>
                 </div>

@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", function () {
         var toastElList = [].slice.call(document.querySelectorAll(".toast"));
         var toastList = toastElList.map(function (toastEl) {
@@ -11,14 +10,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 function openAddModal() {
-    // Reset modal title and button
     document.getElementById("addTaskModalLabel").innerText = "Add New Task";
     document.getElementById("taskSubmitBtn").innerText = "Save Task";
     
-    // Set form action to add
-    document.getElementById("taskForm").action = "{% url 'task_add' %}";
 
-    // Clear all fields
+    // Clear form fields
     document.getElementById("id_title").value = "";
     document.getElementById("id_description").value = "";
     document.getElementById("id_due_date").value = "";
@@ -27,15 +23,15 @@ function openAddModal() {
     document.getElementById("id_category").value = "personal";
 }
 
-function openEditModal(id, title, description, due_date, priority, status, category) {
-    // Change modal title and button
+function openEditModal(buttonElement, id, title, description, due_date, priority, status, category) {
     document.getElementById("addTaskModalLabel").innerText = "Edit Task";
     document.getElementById("taskSubmitBtn").innerText = "Update Task";
     
-    // Set form action to edit
-    document.getElementById("taskForm").action = "{% url 'task_edit' 0 %}".replace('0', id);
+    // Get the edit URL from the button's data attribute
+    const editUrl = buttonElement.getAttribute('data-action-url');
+    document.getElementById("taskForm").action = editUrl;
 
-    // Fill fields with task data
+    // Populate form fields
     document.getElementById("id_title").value = title;
     document.getElementById("id_description").value = description;
     document.getElementById("id_due_date").value = due_date;

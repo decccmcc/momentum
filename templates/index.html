@@ -1,5 +1,9 @@
-{% load static %} {% url 'account_login' as login_url %} {% url 'account_signup' as signup_url %} {% url
-'account_logout' as logout_url %}
+{% load static %}
+{% url 'account_login' as login_url %}
+{% url 'account_signup' as signup_url %}
+{% url 'account_logout' as logout_url %}
+
+
 
 <!doctype html>
 <html lang="en">
@@ -25,10 +29,10 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
+                    {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'task_view' %}">My Tasks</a>
                     </li>
-                    {% if user.is_authenticated %}
                     <li class="nav-item">
                         <a class="nav-link" href="{{ logout_url }}">Logout</a>
                     </li>
