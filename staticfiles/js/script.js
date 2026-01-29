@@ -4,9 +4,9 @@ document.addEventListener("DOMContentLoaded", function () {
           var toast = new bootstrap.Toast(toastEl);
           toast.show();
           return toast;
-        })
+        });
 
-      })
+      });
 
 
 function openAddModal() {
