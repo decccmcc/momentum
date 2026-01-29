@@ -1,31 +1,56 @@
-{% extends "index.html" %}
+{% extends "index.html" %} {% load i18n %} {% block head_title %}{% trans
+"Signup" %}{% endblock head_title %} {% block content %}
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-6 col-md-8">
+      <h3 class="mb-3 text-center">{% trans "Sign Up" %}</h3>
 
-{% load i18n %}
-
-{% block head_title %}{% trans "Signup" %}{% endblock head_title %}
-
-{% block content %}
-<div class="container">
-  <div class="row">
-    <div class="col-md-8 mt-3 offset-md-2">
-      <h3>{% trans "Sign Up" %}</h3>
-
-      <p>Already have an account? Then please <a class="link" href="{{ login_url }}">sign in</a>
+      <p class="text-center">
+        Already have an account? Then please
+        <a class="link" href="{{ login_url }}">sign in</a>.
       </p>
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-md-8 mt-3 offset-md-2">
-      <form class="signup" id="signup_form" method="post" action="{% url 'account_signup' %}">
-        {% csrf_token %}
-        {{ form.as_p }}
-        {% if redirect_field_value %}
-        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-        {% endif %}
-        <button class="btn btn-signup right" type="submit">{% trans "Sign Up" %} &raquo;</button>
-      </form>
+
+      <div class="card shadow-sm mt-4">
+        <div class="card-body text-center">
+          <form
+            class="signup"
+            id="signup_form"
+            method="post"
+            action="{% url 'account_signup' %}"
+          >
+            {% csrf_token %}
+
+            <div class="d-flex flex-column align-items-center">
+              {% for field in form %}
+              <div
+                class="mb-3 text-start"
+                style="width: 100%; max-width: 350px"
+              >
+                <label class="form-label">{{ field.label }}</label>
+                {{ field }} {% if field.errors %}
+                <div class="text-danger small">{{ field.errors }}</div>
+                {% endif %}
+              </div>
+              {% endfor %}
+            </div>
+
+            {% if redirect_field_value %}
+            <input
+              type="hidden"
+              name="{{ redirect_field_name }}"
+              value="{{ redirect_field_value }}"
+            />
+            {% endif %}
+
+            <div class="d-grid gap-2 col-6 mx-auto">
+              <button class="btn btn-outline-secondary" type="submit">
+                {% trans "Sign Up" %} &raquo;
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-
 {% endblock content %}
