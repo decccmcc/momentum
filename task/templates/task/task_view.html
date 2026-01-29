@@ -31,22 +31,26 @@
     {% for task in tasks %}
     <div class="accordion-item mb-2">
         <h2 class="accordion-header" id="heading{{ task.id }}">
-            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                data-bs-target="#collapse{{ task.id }}" aria-expanded="false" aria-controls="collapse{{ task.id }}">
-                <div class="row w-100">
-                    <div class="col-3 fw-bold">{{ task.title }}</div>
-                    <div class="col-3">{{ task.due_date | date:"d M y H:i" }}</div>
-                    <div class="col-3">{{ task.status | capfirst }}</div>
-                    <div class="col-3"><div class="priority {% if task.priority == 'high' %}bg-danger text-white{% elif task.priority == 'medium' %}bg-warning text-dark{% else %}bg-success text-white{% endif %}">{{ task.priority | capfirst }}</div></div>
-                </div>
-            </button>
+    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+            data-bs-target="#collapse{{ task.id }}" aria-expanded="false" aria-controls="collapse{{ task.id }}">
+    <span class="row w-100" style="display: flex;">
+        <span class="col-3 fw-bold">{{ task.title }}</span>
+        <span class="col-3">{{ task.due_date | date:"d M y H:i" }}</span>
+        <span class="col-3">{{ task.status | capfirst }}</span>
+        <span class="col-3">
+            <span class="priority {% if task.priority == 'high' %}bg-danger text-white{% elif task.priority == 'medium' %}bg-warning text-dark{% else %}bg-success text-white{% endif %}">
+                {{ task.priority | capfirst }}
+            </span>
+        </span>
+    </span>
+    </button>
         </h2>
 
         <div id="collapse{{ task.id }}" class="accordion-collapse collapse" aria-labelledby="heading{{ task.id }}"
-            data-bs-parent="#taskAccordion">
+            data-bs-parent="#taskAccordion" role="region">
             <div class="accordion-body">
                 <p class="mb-3">
-                    <strong>Description:</strong><br />
+                    <strong>Description:</strong><br>
                     {{ task.description }}
                 </p>
 
@@ -56,7 +60,7 @@
                     </button>
 
                     <button class="btn btn-primary btn-sm" 
-                        data-bs-toggle="modal" 
+                        data-bs-toggle="modal"
                         data-bs-target="#addTaskModal"
                         data-action-url="{% url 'task_edit' task.id %}"
                         onclick="openEditModal(this, '{{ task.id }}', '{{ task.title|escapejs }}', '{{ task.description|escapejs }}', '{{ task.due_date|date:'Y-m-d\TH:i' }}', '{{ task.priority }}', '{{ task.status }}', '{{ task.category }}')">
@@ -77,11 +81,11 @@
 </button>
 
 <!-- Add/Edit Task Modal -->
-<div class="modal fade" id="addTaskModal" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true">
+<div class="modal fade" id="addTaskModal" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true" role="region">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addTaskModalLabel">Add New Task</h5>
+                <h2 class="modal-title" id="addTaskModalLabel">Add New Task</h2>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -144,11 +148,11 @@
 
 <!-- Delete Confirmation Modal -->
 {% for task in tasks %}
-<div class="modal fade" id="deleteModal{{ task.id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ task.id }}" aria-hidden="true">
+<div class="modal fade" id="deleteModal{{ task.id }}" tabindex="-1" aria-labelledby="deleteModalLabel{{ task.id }}" aria-hidden="true" role="region">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="deleteModalLabel{{ task.id }}">Confirm Delete</h5>
+                <h2 class="modal-title" id="deleteModalLabel{{ task.id }}">Confirm Delete</h2>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
