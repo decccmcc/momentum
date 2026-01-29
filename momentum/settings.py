@@ -15,7 +15,7 @@ import os
 import dj_database_url
 
 if os.path.isfile("env.py"):
-   import env
+    import env
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -34,7 +34,7 @@ DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 ALLOWED_HOSTS = ['https://*.herokuapp.com',
                  'moment-b1d4ee9b6972.herokuapp.com',
                  '127.0.0.1',
-                ]
+                 ]
 
 
 # Application definition
@@ -96,10 +96,8 @@ WSGI_APPLICATION = 'momentum.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
 DATABASES = {
-   'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
-
-
 
 
 # Password validation

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import TemplateView
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 from .models import TaskList, CATEGORY_CHOICES
 from .form import TaskForm
 
@@ -41,6 +42,7 @@ def task_add(request):
             task = form.save(commit=False)
             task.user = request.user
             task.save()
+            messages.success(request, 'Task added successfully!')
             return redirect('task_view')
         else:
             # form invalid → re-render task_view with errors
@@ -66,6 +68,7 @@ def delete_task(request, pk):
 
     if request.method == 'POST':
         task.delete()
+        messages.success(request, 'Task deleted successfully!')
         return redirect('task_view')
 
 
@@ -77,6 +80,7 @@ def task_edit(request, task_id):
         form = TaskForm(request.POST, instance=task)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Task updated successfully!')
             return redirect('task_view')
     else:
         form = TaskForm(instance=task)
