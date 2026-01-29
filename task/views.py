@@ -68,7 +68,7 @@ def delete_task(request, pk):
 
     if request.method == 'POST':
         task.delete()
-        messages.success(request, 'Task deleted successfully!')
+        messages.error(request, 'Task deleted successfully!')
         return redirect('task_view')
 
 
