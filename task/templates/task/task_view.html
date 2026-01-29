@@ -1,6 +1,11 @@
 {% extends "index.html" %} {% block content %}
 
-<h1>My Tasks</h1>
+<div class="d-flex align-items-center gap-2 mb-3">
+    <h1 class="mb-0">My Tasks</h1>
+    <button class="btn btn-success ms-auto" data-bs-toggle="modal" data-bs-target="#addTaskModal" onclick="openAddModal()">
+        + Add New Task
+    </button>
+</div>
 
 <!-- Category Tabs -->
 <ul class="nav nav-tabs mb-3">
@@ -75,10 +80,7 @@
     {% endfor %}
 </div>
 
-<!-- Add New Task Button -->
-<button class="btn btn-success mt-3" data-bs-toggle="modal" data-bs-target="#addTaskModal" onclick="openAddModal()">
-    + Add New Task
-</button>
+
 
 <!-- Add/Edit Task Modal -->
 <div class="modal fade" id="addTaskModal" tabindex="-1" aria-labelledby="addTaskModalLabel" aria-hidden="true" role="region">
