@@ -36,7 +36,7 @@
                 <div class="row w-100">
                     <div class="col-3 fw-bold">{{ task.title }}</div>
                     <div class="col-3">{{ task.due_date | date:"d M y H:i" }}</div>
-                    <div class="col-3">{{ task.status }}</div>
+                    <div class="col-3">{{ task.status | capfirst }}</div>
                     <div class="col-3"><div class="priority {% if task.priority == 'high' %}bg-danger text-white{% elif task.priority == 'medium' %}bg-warning text-dark{% else %}bg-success text-white{% endif %}">{{ task.priority | capfirst }}</div></div>
                 </div>
             </button>
@@ -55,8 +55,11 @@
                         Delete
                     </button>
 
-                    <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#addTaskModal"
-                        onclick="openEditModal('{{ task.id }}', '{{ task.title|escapejs }}', '{{ task.description|escapejs }}', '{{ task.due_date|date:'Y-m-d\TH:i' }}', '{{ task.priority }}', '{{ task.status }}', '{{ task.category }}')">
+                    <button class="btn btn-primary btn-sm" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#addTaskModal"
+                        data-action-url="{% url 'task_edit' task.id %}"
+                        onclick="openEditModal(this, '{{ task.id }}', '{{ task.title|escapejs }}', '{{ task.description|escapejs }}', '{{ task.due_date|date:'Y-m-d\TH:i' }}', '{{ task.priority }}', '{{ task.status }}', '{{ task.category }}')">
                         Edit
                     </button>
                 </div>
@@ -163,40 +166,5 @@
 </div>
 {% endfor %}
 
-<script>
-function openAddModal() {
-    // Reset modal title and button
-    document.getElementById("addTaskModalLabel").innerText = "Add New Task";
-    document.getElementById("taskSubmitBtn").innerText = "Save Task";
-    
-    // Set form action to add
-    document.getElementById("taskForm").action = "{% url 'task_add' %}";
-
-    // Clear all fields
-    document.getElementById("id_title").value = "";
-    document.getElementById("id_description").value = "";
-    document.getElementById("id_due_date").value = "";
-    document.getElementById("id_priority").value = "medium";
-    document.getElementById("id_status").value = "pending";
-    document.getElementById("id_category").value = "personal";
-}
-
-function openEditModal(id, title, description, due_date, priority, status, category) {
-    // Change modal title and button
-    document.getElementById("addTaskModalLabel").innerText = "Edit Task";
-    document.getElementById("taskSubmitBtn").innerText = "Update Task";
-    
-    // Set form action to edit
-    document.getElementById("taskForm").action = "{% url 'task_edit' 0 %}".replace('0', id);
-
-    // Fill fields with task data
-    document.getElementById("id_title").value = title;
-    document.getElementById("id_description").value = description;
-    document.getElementById("id_due_date").value = due_date;
-    document.getElementById("id_priority").value = priority;
-    document.getElementById("id_status").value = status;
-    document.getElementById("id_category").value = category;
-}
-</script>
 
 {% endblock content %}
