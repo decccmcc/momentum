@@ -2,7 +2,7 @@
 
 ## Table of Contents (if we want)
 ## Table of Contents
-
+- [Deployment](#deployment)
 - [Tech Stack](#tech-stack)
 - [Design](#design)
   - [User Stories](#user-stories)
@@ -24,10 +24,9 @@
   - [Lighthouse](#lighthouse)
 - [AI Augmented Development](#ai-augmented-development)
 - [Team Contributions](#team-contributions)
-
-## Features
+## Deployment
+https://moment-b1d4ee9b6972.herokuapp.com/
 ## Tech Stack
-
 HTML, CSS, JavaScript
 Bootstrap5, Django,
 Python (3.12.8)
